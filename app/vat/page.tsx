@@ -6,9 +6,18 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "คำนวณ VAT 7% - แยกราคาก่อน-หลังภาษีมูลค่าเพิ่ม",
-  description: "คำนวณภาษีมูลค่าเพิ่ม VAT 7% แยกราคาก่อนและหลัง VAT ได้ทันที เหมาะสำหรับพ่อค้า ร้านค้าออนไลน์",
-  keywords: "คำนวณ VAT, ภาษีมูลค่าเพิ่ม, VAT 7%, แยก VAT, ราคาไม่รวม VAT",
+  title: "คำนวณ VAT 7% - แยกราคาก่อน-หลังภาษีมูลค่าเพิ่ม | ฟรี",
+  description: "คำนวณภาษีมูลค่าเพิ่ม VAT 7% แยกราคาก่อนและหลัง VAT ได้ทันที เหมาะสำหรับพ่อค้า ร้านค้าออนไลน์ ฟรี ใช้งานง่าย",
+  keywords: "คำนวณ VAT, ภาษีมูลค่าเพิ่ม, VAT 7%, แยก VAT, ราคาไม่รวม VAT, รวม VAT",
+  alternates: { canonical: "https://www.คำนวณเงิน.com/vat" },
+  openGraph: {
+    title: "คำนวณ VAT 7%",
+    description: "แยกราคาก่อน-หลังภาษีมูลค่าเพิ่ม ฟรี",
+    url: "https://www.คำนวณเงิน.com/vat",
+    siteName: "คำนวณเงิน",
+    locale: "th_TH",
+    type: "website",
+  },
 };
 
 export default function VatPage() {

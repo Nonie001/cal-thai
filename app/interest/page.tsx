@@ -6,9 +6,18 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "คำนวณดอกเบี้ย - ดอกเบี้ยคงที่ ลดต้นลดดอก",
-  description: "คำนวณดอกเบี้ยเงินกู้ บัตรเครดิต ทั้งแบบคงที่และลดต้นลดดอก แสดงดอกเบี้ยที่ต้องจ่ายจริง",
-  keywords: "คำนวณดอกเบี้ย, ดอกเบี้ยคงที่, ลดต้นลดดอก, ดอกเบี้ยบัตรเครดิต, ดอกเบี้ยเงินกู้",
+  title: "คำนวณดอกเบี้ย - ดอกเบี้ยคงที่ ลดต้นลดดอก | ฟรี",
+  description: "คำนวณดอกเบี้ยเงินกู้ บัตรเครดิต ทั้งแบบคงที่และลดต้นลดดอก แสดงดอกเบี้ยที่ต้องจ่ายจริง ฟรี ใช้งานง่าย",
+  keywords: "คำนวณดอกเบี้ย, ดอกเบี้ยคงที่, ลดต้นลดดอก, ดอกเบี้ยบัตรเครดิต, ดอกเบี้ยเงินกู้, เปรียบเทียบดอกเบี้ย",
+  alternates: { canonical: "https://www.คำนวณเงิน.com/interest" },
+  openGraph: {
+    title: "คำนวณดอกเบี้ย",
+    description: "ดอกเบี้ยคงที่ ลดต้นลดดอก ฟรี",
+    url: "https://www.คำนวณเงิน.com/interest",
+    siteName: "คำนวณเงิน",
+    locale: "th_TH",
+    type: "website",
+  },
 };
 
 export default function InterestPage() {

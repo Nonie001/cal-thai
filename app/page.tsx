@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import CalculatorCard from "./components/CalculatorCard";
@@ -12,6 +13,20 @@ import {
   CheckCircle,
   Settings2,
 } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "คำนวณเงิน - เครื่องมือคำนวณการเงินฟรี ใช้งานง่าย ไม่ต้องสมัคร",
+  description: "คำนวณเรื่องเงินให้จบในที่เดียว ผ่อน กู้ ภาษี เงินเดือน VAT สินเชื่อ คิดให้ครบในไม่กี่คลิก ฟรี 100% ใช้งานง่าย ไม่ต้องสมัครสมาชิก เครื่องมือคำนวณการเงินสำหรับคนไทย",
+  keywords: "คำนวณเงิน, คำนวณเงินผ่อน, คำนวณภาษี, คำนวณ VAT, คำนวณเงินเดือน, คำนวณดอกเบี้ย, คำนวณสินเชื่อ, เครื่องคิดเงิน, ฟรี, ไม่ต้องสมัคร",
+  openGraph: {
+    title: "คำนวณเงิน - เครื่องมือคำนวณการเงินฟรีสำหรับคนไทย",
+    description: "คำนวณเรื่องเงินให้จบในที่เดียว 6 เครื่องมือ ฟรี ใช้งานง่าย",
+    url: "https://www.คำนวณเงิน.com",
+    siteName: "คำนวณเงิน",
+    locale: "th_TH",
+    type: "website",
+  },
+};
 
 const calculators = [
   {
@@ -62,6 +77,96 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Navbar />
+      
+      {/* JSON-LD Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "คำนวณเงิน",
+            "url": "https://www.คำนวณเงิน.com",
+            "description": "เครื่องมือคำนวณการเงินฟรีสำหรับคนไทย",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://www.คำนวณเงิน.com/?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            },
+            "mainEntity": {
+              "@type": "ItemList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "item": {
+                    "@type": "SoftwareApplication",
+                    "name": "คำนวณเงินผ่อน",
+                    "url": "https://www.คำนวณเงิน.com/installment",
+                    "applicationCategory": "FinanceApplication",
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "THB" }
+                  }
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "item": {
+                    "@type": "SoftwareApplication",
+                    "name": "คำนวณดอกเบี้ย",
+                    "url": "https://www.คำนวณเงิน.com/interest",
+                    "applicationCategory": "FinanceApplication",
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "THB" }
+                  }
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "item": {
+                    "@type": "SoftwareApplication",
+                    "name": "คำนวณภาษี",
+                    "url": "https://www.คำนวณเงิน.com/tax",
+                    "applicationCategory": "FinanceApplication",
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "THB" }
+                  }
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 4,
+                  "item": {
+                    "@type": "SoftwareApplication",
+                    "name": "คำนวณเงินเดือนสุทธิ",
+                    "url": "https://www.คำนวณเงิน.com/salary",
+                    "applicationCategory": "FinanceApplication",
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "THB" }
+                  }
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 5,
+                  "item": {
+                    "@type": "SoftwareApplication",
+                    "name": "คำนวณสินเชื่อ",
+                    "url": "https://www.คำนวณเงิน.com/loan",
+                    "applicationCategory": "FinanceApplication",
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "THB" }
+                  }
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 6,
+                  "item": {
+                    "@type": "SoftwareApplication",
+                    "name": "คำนวณ VAT",
+                    "url": "https://www.คำนวณเงิน.com/vat",
+                    "applicationCategory": "FinanceApplication",
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "THB" }
+                  }
+                }
+              ]
+            }
+          })
+        }}
+      />
       
       <main className="flex-1">
         {/* Hero Section */}

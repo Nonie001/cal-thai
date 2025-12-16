@@ -22,13 +22,33 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "เกี่ยวกับเรา - คำนวณเงิน | เครื่องมือคำนวณการเงินฟรี",
-  description: "เรื่องราวของเว็บไซต์คำนวณเงิน เครื่องมือคำนวณการเงินสำหรับคนไทย ทำโดยนักพัฒนาที่ต้องการให้ทุกคนเข้าถึงเครื่องมือการเงินฟรี",
-  keywords: "เกี่ยวกับเรา, คำนวณเงิน, เครื่องมือการเงิน, ฟรี, ไม่ต้องสมัคร",
+  title: "เกี่ยวกับเรา - คำนวณเงิน | เครื่องมือคำนวณการเงินฟรี ไม่ต้องสมัคร",
+  description: "เรื่องราวของเว็บไซต์คำนวณเงิน เครื่องมือคำนวณภาษี เงินผ่อน ดอกเบี้ย VAT สินเชื่อ และเงินเดือนสุทธิ ฟรี 100% ใช้งานง่าย ไม่ต้องสมัครสมาชิก พัฒนาด้วย Next.js React TypeScript สำหรับคนไทย",
+  keywords: "เกี่ยวกับเรา, คำนวณเงิน, เครื่องมือการเงิน, คำนวณภาษี, คำนวณเงินผ่อน, คำนวณดอกเบี้ย, คำนวณ VAT, คำนวณสินเชื่อ, คำนวณเงินเดือน, ฟรี, ไม่ต้องสมัคร, Next.js, React, เครื่องมือการเงินไทย",
+  authors: [{ name: "Cal-Thai" }],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+  alternates: {
+    canonical: "https://www.คำนวณเงิน.com/about",
+  },
   openGraph: {
-    title: "เกี่ยวกับเรา - คำนวณเงิน",
-    description: "เรื่องราวของเว็บไซต์คำนวณเงิน เครื่องมือคำนวณการเงินสำหรับคนไทย",
+    title: "เกี่ยวกับเรา - คำนวณเงิน | เครื่องมือคำนวณการเงินฟรี",
+    description: "เรื่องราวของเว็บไซต์คำนวณเงิน เครื่องมือคำนวณการเงินฟรี 6 เครื่องมือ ใช้งานง่าย ไม่ต้องสมัครสมาชิก",
+    url: "https://www.คำนวณเงิน.com/about",
+    siteName: "คำนวณเงิน",
+    locale: "th_TH",
     type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "เกี่ยวกับเรา - คำนวณเงิน",
+    description: "เครื่องมือคำนวณการเงินฟรี 6 เครื่องมือ ใช้งานง่าย ไม่ต้องสมัคร",
   },
 };
 
@@ -36,10 +56,43 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Navbar />
+      
+      {/* JSON-LD Schema for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            "name": "เกี่ยวกับเรา - คำนวณเงิน",
+            "description": "เรื่องราวของเว็บไซต์คำนวณเงิน เครื่องมือคำนวณการเงินฟรีสำหรับคนไทย",
+            "url": "https://www.คำนวณเงิน.com/about",
+            "mainEntity": {
+              "@type": "WebApplication",
+              "name": "คำนวณเงิน",
+              "applicationCategory": "FinanceApplication",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "THB"
+              },
+              "featureList": [
+                "คำนวณเงินผ่อน",
+                "คำนวณดอกเบี้ย",
+                "คำนวณภาษีเงินได้",
+                "คำนวณเงินเดือนสุทธิ",
+                "คำนวณสินเชื่อบ้าน/รถ",
+                "คำนวณ VAT 7%"
+              ]
+            }
+          })
+        }}
+      />
+      
       <main className="flex-1 py-8 md:py-12">
         <div className="max-w-3xl mx-auto px-4">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
-            เกี่ยวกับเรา
+            เกี่ยวกับเรา - เครื่องมือคำนวณการเงินฟรีสำหรับคนไทย
           </h1>
           
           <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100 space-y-10">
@@ -85,48 +138,60 @@ export default function AboutPage() {
             <section>
               <div className="flex items-center gap-3 mb-4">
                 <Calculator className="w-6 h-6 text-[#0A4174]" />
-                <h2 className="text-xl font-semibold text-gray-900">เครื่องมือที่พัฒนา</h2>
+                <h2 className="text-xl font-semibold text-gray-900">เครื่องมือคำนวณการเงินที่พัฒนา</h2>
               </div>
               <div className="grid sm:grid-cols-2 gap-4 text-gray-600">
                 <div className="flex items-start gap-3">
                   <Calculator className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
                   <div>
-                    <h3 className="font-medium text-gray-900 mb-1">คำนวณเงินผ่อน</h3>
+                    <h3 className="font-medium text-gray-900 mb-1">
+                      <a href="/installment" className="hover:text-[#0A4174] transition-colors">คำนวณเงินผ่อน</a>
+                    </h3>
                     <p className="text-sm">คำนวณยอดผ่อนรถ บ้าน พร้อมดอกเบี้ยรวม</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <TrendingUp className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <div>
-                    <h3 className="font-medium text-gray-900 mb-1">คำนวณดอกเบี้ย</h3>
+                    <h3 className="font-medium text-gray-900 mb-1">
+                      <a href="/interest" className="hover:text-[#0A4174] transition-colors">คำนวณดอกเบี้ย</a>
+                    </h3>
                     <p className="text-sm">เปรียบเทียบดอกเบี้ยคงที่และลดต้นลดดอก</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Receipt className="w-5 h-5 text-purple-600 mt-0.5 flex-shrink-0" />
                   <div>
-                    <h3 className="font-medium text-gray-900 mb-1">คำนวณภาษี</h3>
+                    <h3 className="font-medium text-gray-900 mb-1">
+                      <a href="/tax" className="hover:text-[#0A4174] transition-colors">คำนวณภาษี</a>
+                    </h3>
                     <p className="text-sm">ภาษีเงินได้บุคคลธรรมดาพร้อมค่าลดหย่อน</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Wallet className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
                   <div>
-                    <h3 className="font-medium text-gray-900 mb-1">คำนวณเงินเดือนสุทธิ</h3>
+                    <h3 className="font-medium text-gray-900 mb-1">
+                      <a href="/salary" className="hover:text-[#0A4174] transition-colors">คำนวณเงินเดือนสุทธิ</a>
+                    </h3>
                     <p className="text-sm">เงินเดือนหลังหักภาษีและประกันสังคม</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Home className="w-5 h-5 text-rose-600 mt-0.5 flex-shrink-0" />
                   <div>
-                    <h3 className="font-medium text-gray-900 mb-1">คำนวณสินเชื่อ</h3>
+                    <h3 className="font-medium text-gray-900 mb-1">
+                      <a href="/loan" className="hover:text-[#0A4174] transition-colors">คำนวณสินเชื่อ</a>
+                    </h3>
                     <p className="text-sm">สินเชื่อบ้านและรถยนต์</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <FileText className="w-5 h-5 text-slate-600 mt-0.5 flex-shrink-0" />
                   <div>
-                    <h3 className="font-medium text-gray-900 mb-1">คำนวณ VAT</h3>
+                    <h3 className="font-medium text-gray-900 mb-1">
+                      <a href="/vat" className="hover:text-[#0A4174] transition-colors">คำนวณ VAT</a>
+                    </h3>
                     <p className="text-sm">แยกราคาก่อนและหลังภาษีมูลค่าเพิ่ม</p>
                   </div>
                 </div>

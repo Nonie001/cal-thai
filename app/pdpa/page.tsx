@@ -5,7 +5,16 @@ import Footer from "../components/Footer";
 export const metadata: Metadata = {
   title: "นโยบายคุ้มครองข้อมูลส่วนบุคคล (PDPA) - คำนวณเงิน",
   description: "นโยบายคุ้มครองข้อมูลส่วนบุคคลของเว็บไซต์คำนวณเงิน ตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562",
-  keywords: "PDPA, คุ้มครองข้อมูลส่วนบุคคล, นโยบายความเป็นส่วนตัว, คำนวณเงิน",
+  keywords: "PDPA, คุ้มครองข้อมูลส่วนบุคคล, นโยบายความเป็นส่วนตัว, คำนวณเงิน, พรบ. ข้อมูลส่วนบุคคล",
+  alternates: { canonical: "https://www.คำนวณเงิน.com/pdpa" },
+  openGraph: {
+    title: "นโยบายคุ้มครองข้อมูลส่วนบุคคล (PDPA)",
+    description: "นโยบายตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562",
+    url: "https://www.คำนวณเงิน.com/pdpa",
+    siteName: "คำนวณเงิน",
+    locale: "th_TH",
+    type: "website",
+  },
 };
 
 export default function PDPAPage() {

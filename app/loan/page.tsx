@@ -6,9 +6,18 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "คำนวณสินเชื่อบ้าน/รถ - วงเงินกู้ ยอดผ่อน ดอกเบี้ย",
-  description: "คำนวณสินเชื่อบ้าน สินเชื่อรถ วงเงินกู้ ดอกเบี้ย ยอดผ่อนต่อเดือน สรุปดอกเบี้ยตลอดสัญญา",
-  keywords: "คำนวณสินเชื่อบ้าน, คำนวณสินเชื่อรถ, วงเงินกู้, ผ่อนบ้าน, ผ่อนรถ, ดอกเบี้ยบ้าน",
+  title: "คำนวณสินเชื่อบ้าน/รถ - วงเงินกู้ ยอดผ่อน | ฟรี",
+  description: "คำนวณสินเชื่อบ้าน สินเชื่อรถ วงเงินกู้ ดอกเบี้ย ยอดผ่อนต่อเดือน สรุปดอกเบี้ยตลอดสัญญา ฟรี ใช้งานง่าย",
+  keywords: "คำนวณสินเชื่อบ้าน, คำนวณสินเชื่อรถ, วงเงินกู้, ผ่อนบ้าน, ผ่อนรถ, ดอกเบี้ยบ้าน, ดอกเบี้ยรถ",
+  alternates: { canonical: "https://www.คำนวณเงิน.com/loan" },
+  openGraph: {
+    title: "คำนวณสินเชื่อบ้าน/รถ",
+    description: "วงเงินกู้ ยอดผ่อน ดอกเบี้ย ฟรี",
+    url: "https://www.คำนวณเงิน.com/loan",
+    siteName: "คำนวณเงิน",
+    locale: "th_TH",
+    type: "website",
+  },
 };
 
 export default function LoanPage() {

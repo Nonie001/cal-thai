@@ -4,7 +4,17 @@ import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
   title: "นโยบายความเป็นส่วนตัว - คำนวณเงิน",
-  description: "นโยบายความเป็นส่วนตัวของเว็บไซต์คำนวณเงิน",
+  description: "นโยบายความเป็นส่วนตัวของเว็บไซต์คำนวณเงิน การเก็บรวบรวมและใช้ข้อมูลผู้ใช้งาน",
+  keywords: "นโยบายความเป็นส่วนตัว, Privacy Policy, คำนวณเงิน, การคุ้มครองข้อมูล",
+  alternates: { canonical: "https://www.คำนวณเงิน.com/privacy-policy" },
+  openGraph: {
+    title: "นโยบายความเป็นส่วนตัว",
+    description: "นโยบายความเป็นส่วนตัวของเว็บไซต์คำนวณเงิน",
+    url: "https://www.คำนวณเงิน.com/privacy-policy",
+    siteName: "คำนวณเงิน",
+    locale: "th_TH",
+    type: "website",
+  },
 };
 
 export default function PrivacyPolicyPage() {
