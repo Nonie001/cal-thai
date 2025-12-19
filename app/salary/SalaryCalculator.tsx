@@ -1,10 +1,59 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Wallet, TrendingDown, Receipt, Calendar } from "lucide-react";
 
 export default function SalaryCalculator() {
   const [salary, setSalary] = useState<string>("25000");
+  const [toast, setToast] = useState<string | null>(null);
+
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Init from query
+  useEffect(() => {
+    const s = searchParams.get("salary");
+    if (s) setSalary(s);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Sync URL
+  useEffect(() => {
+    const params = new URLSearchParams();
+    params.set("salary", (parseFloat(salary.replace(/,/g, '')) || 0).toString());
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  }, [salary, router, pathname]);
+
+  const buildShareUrl = () => {
+    const params = new URLSearchParams();
+    params.set("salary", (parseFloat(salary.replace(/,/g, '')) || 0).toString());
+    return `${window.location.origin}${pathname}?${params.toString()}`;
+  };
+
+  const copyLink = async () => {
+    const url = buildShareUrl();
+    let copied = false;
+    try { await navigator.clipboard.writeText(url); copied = true; } catch {}
+    if (!copied) {
+      try {
+        const textarea = document.createElement('textarea');
+        textarea.value = url;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        copied = document.execCommand('copy');
+        document.body.removeChild(textarea);
+      } catch {}
+    }
+    setToast(copied ? 'คัดลอกลิงก์แล้ว' : 'คัดลอกลิงก์ไม่สำเร็จ');
+    setTimeout(() => setToast(null), 2000);
+  };
+
+  // แชร์แบบเนทีฟถูกปิดเพื่อให้เหลือเฉพาะการคัดลอกลิงก์
 
   const taxBrackets = [
     { min: 0, max: 150000, rate: 0 },
@@ -225,6 +274,13 @@ export default function SalaryCalculator() {
             <div className="text-xs text-[#0A4174] mb-1">สุทธิทั้งปี</div>
             <div className="font-bold text-[#0A4174]">฿{formatNumber(result.netSalary * 12)}</div>
           </div>
+        </div>
+
+        {/* Share Bar */}
+        <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-start sm:items-center gap-2">
+          <button onClick={copyLink} className="w-full sm:w-auto px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium">คัดลอกลิงก์ผลลัพธ์</button>
+          <span className="text-xs text-gray-500 self-center">คัดลอกลิงก์นี้แล้วส่งให้คนอื่นได้เลย</span>
+          {toast && <span className="text-xs text-emerald-700 self-center">{toast}</span>}
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 type InterestType = "flat" | "reducing";
 
@@ -9,6 +10,66 @@ export default function InterestCalculator() {
   const [interestRate, setInterestRate] = useState<string>("15");
   const [months, setMonths] = useState<string>("12");
   const [interestType, setInterestType] = useState<InterestType>("flat");
+  const [toast, setToast] = useState<string | null>(null);
+
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Init from query
+  useEffect(() => {
+    const p = searchParams.get("principal");
+    const r = searchParams.get("interestRate");
+    const m = searchParams.get("months");
+    const t = searchParams.get("interestType");
+    if (p) setPrincipal(p);
+    if (r) setInterestRate(r);
+    if (m) setMonths(m);
+    if (t === "flat" || t === "reducing") setInterestType(t as InterestType);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Sync URL
+  useEffect(() => {
+    const params = new URLSearchParams();
+    params.set("principal", (parseFloat(principal.replace(/,/g, '')) || 0).toString());
+    params.set("interestRate", (parseFloat(interestRate) || 0).toString());
+    params.set("months", (parseInt(months) || 1).toString());
+    params.set("interestType", interestType);
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  }, [principal, interestRate, months, interestType, router, pathname]);
+
+  const buildShareUrl = () => {
+    const params = new URLSearchParams();
+    params.set("principal", (parseFloat(principal.replace(/,/g, '')) || 0).toString());
+    params.set("interestRate", (parseFloat(interestRate) || 0).toString());
+    params.set("months", (parseInt(months) || 1).toString());
+    params.set("interestType", interestType);
+    return `${window.location.origin}${pathname}?${params.toString()}`;
+  };
+
+  const copyLink = async () => {
+    const url = buildShareUrl();
+    let copied = false;
+    try { await navigator.clipboard.writeText(url); copied = true; } catch {}
+    if (!copied) {
+      try {
+        const textarea = document.createElement('textarea');
+        textarea.value = url;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        copied = document.execCommand('copy');
+        document.body.removeChild(textarea);
+      } catch {}
+    }
+    setToast(copied ? 'คัดลอกลิงก์แล้ว' : 'คัดลอกลิงก์ไม่สำเร็จ');
+    setTimeout(() => setToast(null), 2000);
+  };
+
+  // แชร์แบบเนทีฟถูกปิดเพื่อให้เหลือเฉพาะการคัดลอกลิงก์
 
   const result = useMemo(() => {
     const principalNum = parseFloat(principal.replace(/,/g, '')) || 0;
@@ -152,6 +213,13 @@ export default function InterestCalculator() {
             💡 ดอกเบี้ยคงที่ {interestRate}% เทียบเท่าลดต้นลดดอกประมาณ {(parseFloat(interestRate) * 1.8).toFixed(1)}%
           </div>
         )}
+
+        {/* Share Bar */}
+        <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-start sm:items-center gap-2">
+          <button onClick={copyLink} className="w-full sm:w-auto px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium">คัดลอกลิงก์ผลลัพธ์</button>
+          <span className="text-xs text-gray-500 self-center">คัดลอกลิงก์นี้แล้วส่งให้คนอื่นได้เลย</span>
+          {toast && <span className="text-xs text-emerald-700 self-center">{toast}</span>}
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Calculator, Plus, Minus, Receipt, BarChart3 } from "lucide-react";
 
 type CalculationMode = "addVat" | "removeVat";
@@ -9,6 +10,58 @@ export default function VatCalculator() {
   const [amount, setAmount] = useState<string>("1000");
   const [mode, setMode] = useState<CalculationMode>("addVat");
   const VAT_RATE = 0.07;
+  const [toast, setToast] = useState<string | null>(null);
+
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Init from query
+  useEffect(() => {
+    const a = searchParams.get("amount");
+    const m = searchParams.get("mode");
+    if (a) setAmount(a);
+    if (m === "addVat" || m === "removeVat") setMode(m as CalculationMode);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Sync URL
+  useEffect(() => {
+    const params = new URLSearchParams();
+    params.set("amount", (parseFloat(amount.replace(/,/g, '')) || 0).toString());
+    params.set("mode", mode);
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  }, [amount, mode, router, pathname]);
+
+  const buildShareUrl = () => {
+    const params = new URLSearchParams();
+    params.set("amount", (parseFloat(amount.replace(/,/g, '')) || 0).toString());
+    params.set("mode", mode);
+    return `${window.location.origin}${pathname}?${params.toString()}`;
+  };
+
+  const copyLink = async () => {
+    const url = buildShareUrl();
+    let copied = false;
+    try { await navigator.clipboard.writeText(url); copied = true; } catch {}
+    if (!copied) {
+      try {
+        const textarea = document.createElement('textarea');
+        textarea.value = url;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        copied = document.execCommand('copy');
+        document.body.removeChild(textarea);
+      } catch {}
+    }
+    setToast(copied ? 'คัดลอกลิงก์แล้ว' : 'คัดลอกลิงก์ไม่สำเร็จ');
+    setTimeout(() => setToast(null), 2000);
+  };
+
+  // แชร์แบบเนทีฟถูกปิดเพื่อให้เหลือเฉพาะการคัดลอกลิงก์
 
   const result = useMemo(() => {
     const amountNum = parseFloat(amount.replace(/,/g, '')) || 0;
@@ -241,6 +294,13 @@ export default function VatCalculator() {
               VAT {((result.vatAmount / result.priceWithVat) * 100).toFixed(1)}%
             </span>
           </div>
+        </div>
+
+        {/* Share Bar */}
+        <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-start sm:items-center gap-2">
+          <button onClick={copyLink} className="w-full sm:w-auto px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium">คัดลอกลิงก์ผลลัพธ์</button>
+          <span className="text-xs text-gray-500 self-center">คัดลอกลิงก์นี้แล้วส่งให้คนอื่นได้เลย</span>
+          {toast && <span className="text-xs text-emerald-700 self-center">{toast}</span>}
         </div>
       </div>
     </div>

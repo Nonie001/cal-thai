@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 export default function TaxCalculator() {
   const [income, setIncome] = useState<string>("600000");
@@ -8,8 +9,68 @@ export default function TaxCalculator() {
   const [expenseDeduction, setExpenseDeduction] = useState<string>("100000"); // ค่าใช้จ่าย 50% ไม่เกิน 100,000
   const [socialSecurity, setSocialSecurity] = useState<string>("9000");
   const [withholdingTax, setWithholdingTax] = useState<string>("0");
+  const [toast, setToast] = useState<string | null>(null);
 
-  // Tax brackets for Thailand 2567
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Init from query
+  useEffect(() => {
+    const i = searchParams.get("income");
+    const e = searchParams.get("expenseDeduction");
+    const s = searchParams.get("socialSecurity");
+    const w = searchParams.get("withholdingTax");
+    if (i) setIncome(i);
+    if (e) setExpenseDeduction(e);
+    if (s) setSocialSecurity(s);
+    if (w) setWithholdingTax(w);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Sync URL
+  useEffect(() => {
+    const params = new URLSearchParams();
+    params.set("income", (parseFloat(income.replace(/,/g, '')) || 0).toString());
+    params.set("expenseDeduction", (parseFloat(expenseDeduction) || 0).toString());
+    params.set("socialSecurity", (parseFloat(socialSecurity) || 0).toString());
+    params.set("withholdingTax", (parseFloat(withholdingTax.replace(/,/g, '')) || 0).toString());
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  }, [income, expenseDeduction, socialSecurity, withholdingTax, router, pathname]);
+
+  const buildShareUrl = () => {
+    const params = new URLSearchParams();
+    params.set("income", (parseFloat(income.replace(/,/g, '')) || 0).toString());
+    params.set("expenseDeduction", (parseFloat(expenseDeduction) || 0).toString());
+    params.set("socialSecurity", (parseFloat(socialSecurity) || 0).toString());
+    params.set("withholdingTax", (parseFloat(withholdingTax.replace(/,/g, '')) || 0).toString());
+    return `${window.location.origin}${pathname}?${params.toString()}`;
+  };
+
+  const copyLink = async () => {
+    const url = buildShareUrl();
+    let copied = false;
+    try { await navigator.clipboard.writeText(url); copied = true; } catch {}
+    if (!copied) {
+      try {
+        const textarea = document.createElement('textarea');
+        textarea.value = url;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        copied = document.execCommand('copy');
+        document.body.removeChild(textarea);
+      } catch {}
+    }
+    setToast(copied ? 'คัดลอกลิงก์แล้ว' : 'คัดลอกลิงก์ไม่สำเร็จ');
+    setTimeout(() => setToast(null), 2000);
+  };
+
+  // แชร์แบบเนทีฟถูกปิดเพื่อให้เหลือเฉพาะการคัดลอกลิงก์
+
+  // Tax brackets for Thailand 2568
   const taxBrackets = [
     { min: 0, max: 150000, rate: 0 },
     { min: 150000, max: 300000, rate: 0.05 },
@@ -190,6 +251,13 @@ export default function TaxCalculator() {
         <div className="mt-3 p-3 bg-gray-50 rounded-xl text-xs text-gray-600">
           <div className="font-medium mb-1">ค่าลดหย่อน:</div>
           <div>• ส่วนตัว ฿{formatNumber(60000)} • ค่าใช้จ่าย ฿{formatNumber(Math.min(parseFloat(expenseDeduction) || 0, 100000))} • ประกันสังคม ฿{formatNumber(Math.min(parseFloat(socialSecurity) || 0, 9000))}</div>
+        </div>
+
+        {/* Share Bar */}
+        <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-start sm:items-center gap-2">
+          <button onClick={copyLink} className="w-full sm:w-auto px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium">คัดลอกลิงก์ผลลัพธ์</button>
+          <span className="text-xs text-gray-500 self-center">คัดลอกลิงก์นี้แล้วส่งให้คนอื่นได้เลย</span>
+          {toast && <span className="text-xs text-emerald-700 self-center">{toast}</span>}
         </div>
       </div>
     </div>

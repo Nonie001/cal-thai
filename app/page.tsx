@@ -338,16 +338,16 @@ export default function Home() {
         </section>
 
         {/* Calculator Grid */}
-        <section className="py-10 sm:py-12 md:py-16">
+        <section className="py-10 sm:py-12 md:py-16 bg-gradient-to-b from-white via-slate-50 to-blue-50/30">
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-8 sm:mb-10">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#0A4174] via-blue-600 to-[#0A4174]">
                 เลือกเครื่องมือที่ต้องการ
               </h2>
-              <p className="text-sm sm:text-base text-gray-500">คลิกเพื่อเริ่มคำนวณทันที</p>
+              <p className="text-sm sm:text-base text-gray-600">คลิกเพื่อเริ่มคำนวณทันที</p>
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
               {calculators.map((calc) => (
                 <CalculatorCard key={calc.href} {...calc} />
               ))}
@@ -355,66 +355,35 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Features Section */}
-        <section className="py-10 sm:py-12 md:py-16 bg-white">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center mb-8 sm:mb-10">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">
-                ทำไมต้องใช้เว็บนี้?
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
-              <div className="text-center p-4 sm:p-0">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#0A4174]/10 rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                  <Zap className="w-6 h-6 sm:w-7 sm:h-7 text-[#0A4174]" />
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-1 sm:mb-2">คำนวณไว</h3>
-                <p className="text-xs sm:text-sm text-gray-500">ผลลัพธ์แสดงทันทีขณะพิมพ์ ไม่ต้องกดปุ่มคำนวณ</p>
-              </div>
-
-              <div className="text-center p-4 sm:p-0">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                  <CheckCircle className="w-6 h-6 sm:w-7 sm:h-7 text-emerald-600" />
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-1 sm:mb-2">ตัวเลขชัด</h3>
-                <p className="text-xs sm:text-sm text-gray-500">แสดงผลเป็นตัวเลขใหญ่ อ่านง่าย เข้าใจทันที</p>
-              </div>
-
-              <div className="text-center p-4 sm:p-0">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#0A4174]/10 rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                  <Settings2 className="w-6 h-6 sm:w-7 sm:h-7 text-[#0A4174]" />
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-1 sm:mb-2">ไม่ต้องอ่านยาว</h3>
-                <p className="text-xs sm:text-sm text-gray-500">มาเพื่อคำนวณ ได้คำตอบ ไม่ต้องอ่านบทความ</p>
-              </div>
-            </div>
-          </div>
-        </section>
+        
 
         {/* CTA Section */}
         <section className="py-10 sm:py-12 md:py-16 px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-r from-[#0A4174] to-[#0A4174]/90 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 text-center text-white">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4">
-                พร้อมคำนวณแล้วหรือยัง?
-              </h2>
-              <p className="text-blue-100 mb-5 sm:mb-6 text-sm sm:text-base">
-                เลือกเครื่องมือด้านบน หรือเริ่มจากเครื่องมือยอดนิยม
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <a
-                  href="/installment"
-                  className="bg-white text-[#0A4174] px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl font-medium hover:bg-gray-50 transition-colors text-sm sm:text-base"
-                >
-                  คำนวณเงินผ่อน
-                </a>
-                <a
-                  href="/tax"
-                  className="bg-[#0A4174]/80 text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl font-medium hover:bg-[#0A4174]/70 transition-colors text-sm sm:text-base"
-                >
-                  คำนวณภาษี
-                </a>
+            <div className="relative rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 text-center text-white overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-[#0A4174] to-blue-600" />
+              <div className="absolute -inset-2 bg-blue-500/20 blur-2xl" />
+              <div className="relative">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4">
+                  พร้อมคำนวณแล้วหรือยัง?
+                </h2>
+                <p className="text-blue-100 mb-5 sm:mb-6 text-sm sm:text-base">
+                  เลือกเครื่องมือด้านบน หรือเริ่มจากเครื่องมือยอดนิยม
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <a
+                    href="/installment"
+                    className="bg-white text-[#0A4174] px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl font-medium hover:bg-gray-50 transition-colors text-sm sm:text-base"
+                  >
+                    คำนวณเงินผ่อน
+                  </a>
+                  <a
+                    href="/tax"
+                    className="bg-white/10 text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl font-medium hover:bg-white/20 transition-colors text-sm sm:text-base border border-white/20"
+                  >
+                    คำนวณภาษี
+                  </a>
+                </div>
               </div>
             </div>
           </div>

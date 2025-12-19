@@ -94,12 +94,6 @@ export default function Footer() {
                   นโยบายความเป็นส่วนตัว
                 </Link>
               </li>
-              <li>
-                <Link href="/pdpa" className="hover:text-white flex items-center gap-2 transition-colors">
-                  <Shield className="w-4 h-4" />
-                  PDPA
-                </Link>
-              </li>
             </ul>
           </div>
         </div>

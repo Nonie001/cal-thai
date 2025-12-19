@@ -16,8 +16,8 @@ export default function CalculatorCard({
   color,
 }: CalculatorCardProps) {
   return (
-    <Link href={href} className="group">
-      <div className="relative bg-white rounded-xl sm:rounded-2xl p-5 sm:p-6 border border-gray-100 hover:border-[#0A4174]/20 hover:shadow-xl hover:shadow-[#0A4174]/5 active:scale-[0.98] transition-all duration-300 h-full overflow-hidden">
+    <Link href={href} aria-label={`${title} - เริ่มคำนวณ`} className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0A4174] rounded-2xl touch-manipulation">
+      <div className="relative bg-white rounded-xl sm:rounded-2xl p-5 sm:p-6 border border-gray-100 shadow-sm hover:border-[#0A4174]/20 hover:shadow-xl hover:shadow-[#0A4174]/5 active:scale-[0.98] transition-all duration-300 h-full overflow-hidden">
         {/* Gradient overlay on hover */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#0A4174]/0 via-[#0A4174]/0 to-blue-50/0 group-hover:to-blue-50/50 transition-all duration-500 pointer-events-none" />
         
@@ -44,7 +44,7 @@ export default function CalculatorCard({
           </p>
           
           {/* Arrow indicator */}
-          <div className="mt-3 sm:mt-4 flex items-center text-[#0A4174] opacity-0 group-hover:opacity-100 transform translate-x-0 group-hover:translate-x-1 transition-all duration-300">
+          <div className="mt-3 sm:mt-4 flex items-center text-[#0A4174] opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transform translate-x-0 sm:group-hover:translate-x-1 transition-all duration-300">
             <span className="text-xs sm:text-sm font-medium">เริ่มคำนวณ</span>
             <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
